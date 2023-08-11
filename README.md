@@ -2,7 +2,7 @@
 Work by the Summer 2023 interns
 
 ## Overview
-The internship project for Yield Inc. is to create an open-source LLM powered chatbot that is capable of answering Yield Protocol's user questions based on relevant documents from Yield's proprietary document corpus.
+The 2023 summer internship project of Yield Inc. is to create an open-source LLM powered chatbot that is capable of answering Yield Protocol's user questions based on relevant documents from Yield's proprietary document corpus.
 The workstream can be partitioned in 5 stages:
 1.  Run a large language model on commercially available infrastructure. 
 2.  Create a fine-tuning dataset that would assist Yield in achieving its goals. 

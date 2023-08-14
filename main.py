@@ -11,6 +11,7 @@ load_dotenv()
 
 LAMBDA_URL = os.getenv('LAMBDA_URL')
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+MAX_LENGTH = 2000
 
 headers = {"Content-Type": "application/json"}
 
@@ -37,6 +38,7 @@ async def on_message(message):
     if bot.user.mentioned_in(message):
         # You can extract the query from the message content
         # For example, you might remove the mention from the beginning of the message
+        author_mention = message.author.mention
         query = message.content.replace(f'<@!{bot.user.id}> ', '')
         search_results = search_question(query)
         prompt = format_yield_prompt(query, search_results)
@@ -56,10 +58,17 @@ async def on_message(message):
             # Parse the response
             answer = json.loads(response.text)
 
-            # Send the answer to the Discord channel
-            await message.channel.send(answer)
+            # mention the caller 
+            full_answer = f"{author_mention}: {answer}"
+
+            # chunk the message in case of run-on.
+            answer_chunks = [full_answer[i:i+MAX_LENGTH] for i in range(0, len(full_answer), MAX_LENGTH)]
+
+            # Send each chunk as a separate message
+            for chunk in answer_chunks:
+                await message.channel.send(chunk)
         else:
-            await message.channel.send('An error occurred while processing your request.')
+            await message.channel.send(f"An error occurred while processing your request. ERROR CODE: {response.status_code}")
 
 # Replace 'YOUR_TOKEN_HERE' with your bot's token
 bot.run(DISCORD_TOKEN)

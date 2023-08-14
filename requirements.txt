@@ -1,6 +1,5 @@
 langchain==0.0.230
 datasets[s3]==2.13.0
-sagemaker>=2.163.0
 discord 
 aiohttp
 python-dotenv
@@ -10,5 +9,3 @@ huggingface-hub
 tqdm 
 requests 
 ipython
-sentence_transformers 
-accelerate

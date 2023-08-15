@@ -70,4 +70,5 @@ def search_question(query_text):
     # print("Query is", query)
     # print("Response is",resp)
     body = [resp['hits']['hits'][i]['fields']['text'][0] for i in range(len(resp['hits']['hits']))] # return all relevant docs here
-    return body
+    sources = [resp['hits']['hits'][i]['_source']['metadata']['source'] for i in range(len(resp['hits']['hits']))]
+    return body, sources

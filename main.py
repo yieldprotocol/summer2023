@@ -113,7 +113,9 @@ async def on_message(message):
                 answer = json.loads(response.text)
 
                 # mention the caller 
-                full_answer = f"{author_mention}: {answer}\n\n**Cited Sources: {set(relevant_srcs)}**"
+                relevant_distinct_srcs = list(set(relevant_srcs))
+                cited_sources = '\n'.join([src for src in relevant_distinct_srcs])
+                full_answer = f"{author_mention}: {answer}\n\n**Cited Sources: \n{cited_sources}**"
                 
                 if send_sources: # if need to print context to discord channel for debugging
                     form_sources = ""
